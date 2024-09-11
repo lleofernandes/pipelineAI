@@ -1,7 +1,11 @@
 import streamlit as st
 from datetime import datetime, time
+from pydantic import ValidationError
+
 import pandas as pd
 import numpy as np
+
+from contratodb import Vendas
 
 def main():
     st.title("Sistema de CRM e Vendas")
@@ -12,16 +16,24 @@ def main():
     qtd = st.number_input("Quantidade de produtos", min_value=1, step=1, format="%d")
     produto = st.selectbox("Produto", ["ZapFlow com Gemini", "ZapFlow com ChatGPT", "ZapFlow com LIamma3.0"])
     
+    
+    
+    
     if st.button("Salvar"):
-        
-        data_hora = datetime.combine(data, hora)
-        st.write("**Dados da Venda:**")
-        st.write(f"Email: {email}")
-        st.write(f"Data e hora da venda: {data_hora}")
-        st.write(f"Valor: {valor}")
-        st.write(f"Quantidade: {qtd}")
-        st.write(f"Produto: {produto}")
-        
+        try:     
+            data_hora = datetime.combine(data, hora)            
+            venda = Vendas(
+                email = email,
+                data = data_hora, 
+                valor = valor,
+                qtd = qtd,
+                produto = produto
+            )                                                
+            st.write(venda)
+            
+        except ValidationError as e: 
+            st.error(f"erro: {e}")
+    
 
     
 

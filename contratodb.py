@@ -13,6 +13,18 @@ class Model(BaseModel):
 
 
 class Vendas(BaseModel):
+    """
+    Modelo ed dados para as vendas
+    
+    Args:
+        email (EmailStr): email do comprador
+        data (datetime): data da compra
+        valor (PositiveFloat): Valor da compra
+        qtd (PositiveInt): qtd de produtos
+        produto (ProdutoEnum): categoria do produto
+    """
+    
+    
     email: EmailStr
     data: datetime
     valor: PositiveFloat

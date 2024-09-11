@@ -10,7 +10,7 @@ from database import save_postgres
 
 def main():
     st.title("Sistema de CRM e Vendas")
-    email = st.text_input("Email", value="contato@leonardofernandes.com.br")
+    email = st.text_input("Email") #value="contato@leonardofernandes.com.br" caso queira deixar algum valor padrão
     data = st.date_input("Data da venda", datetime.now())
     hora = st.time_input("Hora da venda", value=time(9, 0)) #valor padrão 09:00
     valor = st.number_input("Valor da venda", min_value=0.0, format="%.2f")
@@ -22,11 +22,11 @@ def main():
         try:     
             data_hora = datetime.combine(data, hora)            
             venda = Vendas(
-                email = email,
+                email = email.lower(),
                 data = data_hora, 
                 valor = valor,
                 qtd = qtd,
-                produto = produto
+                produto = produto.lower()
             )                                                
             st.write(venda)
             save_postgres(venda)

@@ -6,4 +6,4 @@ theme:
 plugins:
   - search
   - mkdocstrings:
-    default_handler: python
+      default_handler: python

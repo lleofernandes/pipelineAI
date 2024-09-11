@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 
 from contratodb import Vendas
+from database import save_postgres
 
 def main():
     st.title("Sistema de CRM e Vendas")
@@ -15,8 +16,6 @@ def main():
     valor = st.number_input("Valor da venda", min_value=0.0, format="%.2f")
     qtd = st.number_input("Quantidade de produtos", min_value=1, step=1, format="%d")
     produto = st.selectbox("Produto", ["ZapFlow com Gemini", "ZapFlow com ChatGPT", "ZapFlow com LIamma3.0"])
-    
-    
     
     
     if st.button("Salvar"):
@@ -30,6 +29,7 @@ def main():
                 produto = produto
             )                                                
             st.write(venda)
+            save_postgres(venda)
             
         except ValidationError as e: 
             st.error(f"erro: {e}")
